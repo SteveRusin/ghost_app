@@ -4,3 +4,11 @@ output "vpc_id" {
 output "vpc_cidr" {
   value = aws_vpc.cloudx.cidr_block
 }
+
+output "subnet_id" {
+  value = {
+    a = aws_subnet.public_a.id,
+    b = aws_subnet.public_b.id,
+    c = aws_subnet.public_c.id
+  }
+}
