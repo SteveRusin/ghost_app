@@ -7,6 +7,7 @@ module "security_groups" {
   depends_on = [
     module.vpc
   ]
-  vpc_id = module.vpc.vpc_id
+  vpc_id     = module.vpc.vpc_id
   my_ip_cidr = local.my_ip_cidr
+  vpc_cidr   = module.vpc.vpc_cidr
 }
