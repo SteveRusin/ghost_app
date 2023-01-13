@@ -31,3 +31,11 @@ module "efs" {
   subnet_id             = module.vpc.subnet_id
   efs_security_group_id = module.security_groups.efs_sg_id
 }
+
+module "alb" {
+  source = "./alb"
+
+  vpc_id    = module.vpc.vpc_id
+  alb_sg_id = module.security_groups.alb_sg_id
+  subnet_id = module.vpc.subnet_id
+}
