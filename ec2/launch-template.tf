@@ -9,8 +9,8 @@ resource "aws_launch_template" "ghost" {
 
   instance_type = "t2.micro"
 
-  key_name             = aws_key_pair.kp.key_name
-  security_group_names = [var.ec2_pool_sg_id]
+  key_name               = aws_key_pair.kp.key_name
+  vpc_security_group_ids = [var.ec2_pool_sg_id]
 
   user_data = base64encode(
     templatefile("${path.module}/user-data-script.sh", {

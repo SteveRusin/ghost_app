@@ -3,6 +3,14 @@ resource "aws_lb_target_group" "ghost-ec2" {
   port     = 2368
   protocol = "HTTP"
   vpc_id   = var.vpc_id
+
+  health_check {
+    enabled = true
+    path = "/ghost"
+    port = 2368
+    interval = 15
+    matcher = "200,301"
+  }
 }
 
 resource "aws_lb" "ghost_app_alb" {
@@ -10,7 +18,7 @@ resource "aws_lb" "ghost_app_alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [var.alb_sg_id]
-  subnets            = [var.subnet_id.a, var.subnet_id.b, var.subnet_id.c]
+  subnets            = values(var.subnet_id)[*]
 }
 
 resource "aws_lb_listener" "ghost_app_listener" {
