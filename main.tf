@@ -19,6 +19,10 @@ module "ec2" {
     module.security_groups,
     module.iam
   ]
+
+  ec2_pool_sg_id = module.security_groups.ec2_pool_sg_id
+  ghost_app_profile_arn = module.iam.ghost_app_profile_arn
+  lb_dns_name = module.alb.lb_dns_name
 }
 
 module "iam" {

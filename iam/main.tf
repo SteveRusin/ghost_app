@@ -42,3 +42,8 @@ resource "aws_iam_role_policy_attachment" "ghost_app_attach" {
   role       = aws_iam_role.ghost_app.name
   policy_arn = aws_iam_policy.ec2_ghost_app.arn
 }
+
+resource "aws_iam_instance_profile" "ghost_app_profile" {
+  name = "ghost_app_profile"
+  role = aws_iam_role.ghost_app.name
+}
