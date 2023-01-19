@@ -27,6 +27,9 @@ module "ec2" {
   subnet_id             = module.vpc.subnet_id
   lb_arn                = module.alb.lb_arn
   bastion_sg_id         = module.security_groups.bastion_sg_id
+  db_url                = module.db.db_url
+  db_username           = module.db.db_username
+  db_name               = module.db.db_name
 }
 
 module "iam" {
@@ -46,4 +49,16 @@ module "alb" {
   vpc_id    = module.vpc.vpc_id
   alb_sg_id = module.security_groups.alb_sg_id
   subnet_id = module.vpc.subnet_id
+}
+
+module "db" {
+  source = "./db"
+
+  vpc_id         = module.vpc.vpc_id
+  gateway_id     = module.vpc.gateway_id
+  ec2_pool_sg_id = module.security_groups.ec2_pool_sg_id
+}
+
+output "alb_url" {
+  value = module.alb.lb_dns_name
 }

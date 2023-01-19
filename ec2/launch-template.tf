@@ -12,9 +12,14 @@ resource "aws_launch_template" "ghost" {
   key_name               = aws_key_pair.kp.key_name
   vpc_security_group_ids = [var.ec2_pool_sg_id]
 
+  update_default_version = true
+
   user_data = base64encode(
     templatefile("${path.module}/user-data-script.sh", {
-      LB_DNS_NAME = var.lb_dns_name
+      LB_DNS_NAME = var.lb_dns_name,
+      DB_URL = var.db_url,
+      DB_NAME = var.db_name
+      DB_USER = var.db_username
     })
   )
 }

@@ -6,9 +6,13 @@ resource "aws_autoscaling_group" "ghost_ec2_pool" {
   vpc_zone_identifier = values(var.subnet_id)[*]
   target_group_arns = [ var.target_group_arn ]
 
+  instance_refresh {
+    strategy = "Rolling"
+  }
+
   launch_template {
     id      = aws_launch_template.ghost.id
-    version = "$Latest"
+    version = aws_launch_template.ghost.latest_version
   }
 }
 

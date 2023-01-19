@@ -11,7 +11,10 @@ resource "aws_iam_policy" "ec2_ghost_app" {
           "ec2:Describe*",
           "elasticfilesystem:DescribeFileSystems",
           "elasticfilesystem:ClientMount",
-          "elasticfilesystem:ClientWrite"
+          "elasticfilesystem:ClientWrite",
+          "ssm:GetParameter*",
+          "secretsmanager:GetSecretValue",
+          "kms:Decrypt"
         ]
         Effect   = "Allow"
         Resource = "*"
