@@ -9,3 +9,7 @@ output "lb_arn" {
 output "target_group_arn" {
   value = aws_lb_target_group.ghost-ec2.arn
 }
+
+output "alb_ecs_target_group_arn" {
+  value = aws_lb_target_group.ghost-ecs.arn
+}

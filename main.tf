@@ -55,6 +55,16 @@ module "ecr" {
   source = "./ecr"
 }
 
+module "ecs" {
+  source = "./ecs"
+
+  ghost_ecs_role = module.iam.ghost_ecs_role
+  efs_id = module.efs.efs_id
+  alb_ecs_target_group_arn = module.alb.alb_ecs_target_group_arn
+  fargate_pool_sg_id = module.security_groups.fargate_pool_sg_id
+  private_ecs_subnet_id = module.vpc.private_ecs_subnet_id
+}
+
 # module "db" {
 #   source = "./db"
 
@@ -72,4 +82,9 @@ output "alb_url" {
 
 output "ecr_url" {
   value = module.ecr.ecr_url
+}
+
+
+output "debug" {
+  value = module.ecs.template_file
 }

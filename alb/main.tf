@@ -5,11 +5,11 @@ resource "aws_lb_target_group" "ghost-ec2" {
   vpc_id   = var.vpc_id
 
   health_check {
-    enabled = true
-    path = "/ghost"
-    port = 2368
+    enabled  = true
+    path     = "/ghost"
+    port     = 2368
     interval = 15
-    matcher = "200,301"
+    matcher  = "200,301"
   }
 }
 
@@ -37,45 +37,39 @@ resource "aws_lb_listener_rule" "ghost_app_rule" {
   priority     = 100
 
   action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.ghost-ec2.arn
+    type = "forward"
+    forward {
+      target_group {
+        arn    = aws_lb_target_group.ghost-ec2.arn
+        weight = 50
+      }
+
+      target_group {
+        arn    = aws_lb_target_group.ghost-ecs.arn
+        weight = 50
+      }
+    }
   }
 
   condition {
     source_ip {
-      values = [ "0.0.0.0/0" ]
+      values = ["0.0.0.0/0"]
     }
   }
 }
 
-#todo add target groups
-# resource "aws_lb_target_group" "ghost-ecs" {
-#   name     = "ghost-fargate"
-#   port     = 2368
-#   protocol = "HTTP"
-#   vpc_id   = var.vpc_id
+resource "aws_lb_target_group" "ghost-ecs" {
+  name     = "ghost-fargate"
+  port     = 2368
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
 
-#   health_check {
-#     enabled = true
-#     path = "/ghost"
-#     port = 2368
-#     interval = 15
-#     matcher = "200,301"
-#   }
-# }
+  health_check {
+    enabled  = true
+    path     = "/ghost"
+    port     = 2368
+    interval = 15
+    matcher  = "200,301"
+  }
+}
 
-# resource "aws_lb_listener_rule" "ghost_ecs_rule" {
-#   listener_arn = aws_lb_listener.ghost_app_listener.arn
-#   priority     = 100
-
-#   action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.ghost-ec2.arn
-#   }
-
-#   condition {
-#     source_ip {
-#       values = [ "0.0.0.0/0" ]
-#     }
-#   }
-# }

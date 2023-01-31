@@ -15,9 +15,17 @@ output "subnet_id" {
 
 output "private_db_subnet_id" {
   value = {
-    a = aws_subnet.private_db_c.id,
+    a = aws_subnet.private_db_a.id,
     b = aws_subnet.private_db_b.id,
     c = aws_subnet.private_db_c.id
+  }
+}
+
+output "private_ecs_subnet_id" {
+  value = {
+    a = aws_subnet.private_ecs_a.id,
+    b = aws_subnet.private_ecs_b.id,
+    c = aws_subnet.private_ecs_c.id
   }
 }
 
