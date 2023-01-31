@@ -47,3 +47,35 @@ resource "aws_lb_listener_rule" "ghost_app_rule" {
     }
   }
 }
+
+#todo add target groups
+# resource "aws_lb_target_group" "ghost-ecs" {
+#   name     = "ghost-fargate"
+#   port     = 2368
+#   protocol = "HTTP"
+#   vpc_id   = var.vpc_id
+
+#   health_check {
+#     enabled = true
+#     path = "/ghost"
+#     port = 2368
+#     interval = 15
+#     matcher = "200,301"
+#   }
+# }
+
+# resource "aws_lb_listener_rule" "ghost_ecs_rule" {
+#   listener_arn = aws_lb_listener.ghost_app_listener.arn
+#   priority     = 100
+
+#   action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.ghost-ec2.arn
+#   }
+
+#   condition {
+#     source_ip {
+#       values = [ "0.0.0.0/0" ]
+#     }
+#   }
+# }
