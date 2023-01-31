@@ -9,3 +9,4 @@ output "db_url" {
 output "db_name" {
   value = aws_db_instance.ghost.name
 }
+

@@ -13,6 +13,18 @@ output "subnet_id" {
   }
 }
 
+output "private_db_subnet_id" {
+  value = {
+    a = aws_subnet.private_db_c.id,
+    b = aws_subnet.private_db_b.id,
+    c = aws_subnet.private_db_c.id
+  }
+}
+
 output "gateway_id" {
   value = aws_internet_gateway.gw.id
+}
+
+output "aws_db_subnet_group_name" {
+  value = aws_db_subnet_group.ghost.name
 }

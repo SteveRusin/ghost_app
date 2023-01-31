@@ -13,3 +13,11 @@ output "ec2_pool_sg_id" {
 output "bastion_sg_id" {
   value = aws_security_group.bastion.id
 }
+
+output "fargate_pool_sg_id" {
+  value = aws_security_group.fargate_pool.id
+}
+
+output "mysql_seg_group_id" {
+  value = aws_security_group_rule.msql_ingress.id
+}

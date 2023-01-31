@@ -54,9 +54,12 @@ module "alb" {
 module "db" {
   source = "./db"
 
-  vpc_id         = module.vpc.vpc_id
-  gateway_id     = module.vpc.gateway_id
-  ec2_pool_sg_id = module.security_groups.ec2_pool_sg_id
+  vpc_id                   = module.vpc.vpc_id
+  gateway_id               = module.vpc.gateway_id
+  ec2_pool_sg_id           = module.security_groups.ec2_pool_sg_id
+  mysql_seg_group_id       = module.security_groups.mysql_seg_group_id
+  private_db_subnet_id     = module.vpc.private_db_subnet_id
+  aws_db_subnet_group_name = module.vpc.aws_db_subnet_group_name
 }
 
 output "alb_url" {
