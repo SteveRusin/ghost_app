@@ -7,4 +7,8 @@ resource "aws_ecr_repository" "ghost" {
   image_scanning_configuration {
     scan_on_push = false
   }
+
+  provisioner "local-exec" {
+    command = "${path.module}/../ecr.login_push.sh"
+  }
 }

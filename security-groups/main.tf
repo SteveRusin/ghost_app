@@ -171,3 +171,46 @@ resource "aws_security_group_rule" "msql_ingress" {
   security_group_id = aws_security_group.mysql.id
   source_security_group_id = aws_security_group.ec2_pool.id
 }
+
+resource "aws_security_group_rule" "msql_ingress_fargate" {
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  security_group_id = aws_security_group.mysql.id
+  source_security_group_id = aws_security_group.fargate_pool.id
+}
+
+resource "aws_security_group" "vpc_endpoint" {
+  name        = "vpc_endpoint"
+  description = "defines access for vpc_endpoint"
+  vpc_id      = var.vpc_id
+}
+
+resource "aws_security_group_rule" "vpc_endpoint_fargate" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  security_group_id = aws_security_group.vpc_endpoint.id
+  source_security_group_id = aws_security_group.fargate_pool.id
+}
+
+resource "aws_security_group_rule" "vpc_endpoint_fargate_ingress" {
+  type              = "ingress"
+  description       = "allow any destination"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.vpc_endpoint.id
+}
+
+resource "aws_security_group_rule" "vpc_endpoint_ec2" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  security_group_id = aws_security_group.vpc_endpoint.id
+  source_security_group_id = aws_security_group.ec2_pool.id
+}

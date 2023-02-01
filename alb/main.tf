@@ -71,9 +71,10 @@ resource "aws_lb_target_group" "ghost-ecs" {
 
   health_check {
     enabled  = true
-    path     = "/ghost"
+    path     = "/"
     port     = 2368
-    interval = 15
+    interval = 60
+    unhealthy_threshold = 5
     matcher  = "200,301"
   }
 }

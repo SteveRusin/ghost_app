@@ -36,3 +36,7 @@ output "gateway_id" {
 output "aws_db_subnet_group_name" {
   value = aws_db_subnet_group.ghost.name
 }
+
+output "private_rt_id" {
+  value = aws_route_table.private_rt.id
+}

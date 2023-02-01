@@ -11,3 +11,8 @@ variable "private_ecs_subnet_id" {
     c = string
   })
 }
+
+variable "db_username" {}
+variable "db_name" {}
+
+variable "db_url" {}

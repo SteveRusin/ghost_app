@@ -74,7 +74,10 @@ resource "aws_iam_policy" "ghost_ecs" {
           "elasticloadbalancing:DeregisterTargets",
           "elasticloadbalancing:Describe*",
           "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
-          "elasticloadbalancing:RegisterTargets"
+          "elasticloadbalancing:RegisterTargets",
+          "logs:*",
+          "ssm:GetParameter*",
+          "secretsmanager:GetSecretValue",
         ]
         Effect   = "Allow"
         Resource = "*"

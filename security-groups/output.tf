@@ -19,5 +19,9 @@ output "fargate_pool_sg_id" {
 }
 
 output "mysql_seg_group_id" {
-  value = aws_security_group_rule.msql_ingress.id
+  value = aws_security_group.mysql.id
+}
+
+output "vpc_endpoint_sg_id" {
+  value = aws_security_group.vpc_endpoint.id
 }

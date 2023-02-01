@@ -31,10 +31,9 @@ data "template_file" "container_definitions" {
 
   vars = {
     "ECR_IMAGE"   = "769832282011.dkr.ecr.eu-west-1.amazonaws.com/ghost:4.12"
-    "DB_URL"      = "222" // todo add db
-    "DB_USER"     = "333"
-    "DB_PASSWORD" = "4444"
-    "DB_NAME"     = "555"
+    "DB_URL"      = var.db_url
+    "DB_USER"     = var.db_username
+    "DB_NAME"     = var.db_name
     "CLOUDWATCH_GROUP" = aws_cloudwatch_log_group.ghost-ecs-logs.name
   }
 }
