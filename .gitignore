@@ -4,3 +4,4 @@
 variables.private.tf
 ghost-ec2-pool.pem
 .terraform.tfstate.lock.info
+.env

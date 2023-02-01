@@ -67,7 +67,14 @@ resource "aws_iam_policy" "ghost_ecs" {
           "ecr:BatchGetImage",
           "elasticfilesystem:DescribeFileSystems",
           "elasticfilesystem:ClientMount",
-          "elasticfilesystem:ClientWrite"
+          "elasticfilesystem:ClientWrite",
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:Describe*",
+          "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+          "elasticloadbalancing:DeregisterTargets",
+          "elasticloadbalancing:Describe*",
+          "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+          "elasticloadbalancing:RegisterTargets"
         ]
         Effect   = "Allow"
         Resource = "*"
@@ -80,14 +87,17 @@ resource "aws_iam_role" "ghost_ecs" {
   name = "ghost_ecs"
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+    Version = "2008-10-17"
     Statement = [
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = "ec2.amazonaws.com"
+          Service = [
+            "ecs.amazonaws.com",
+            "ecs-tasks.amazonaws.com"
+          ]
         }
       },
     ]
