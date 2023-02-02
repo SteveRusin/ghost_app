@@ -21,25 +21,25 @@ module "security_groups" {
   vpc_cidr   = module.vpc.vpc_cidr
 }
 
-# module "ec2" {
-#   source = "./ec2"
-#   depends_on = [
-#     module.vpc,
-#     module.security_groups,
-#     module.iam
-#   ]
+module "ec2" {
+  source = "./ec2"
+  depends_on = [
+    module.vpc,
+    module.security_groups,
+    module.iam
+  ]
 
-#   ec2_pool_sg_id        = module.security_groups.ec2_pool_sg_id
-#   ghost_app_profile_arn = module.iam.ghost_app_profile_arn
-#   lb_dns_name           = module.alb.lb_dns_name
-#   target_group_arn      = module.alb.target_group_arn
-#   subnet_id             = module.vpc.subnet_id
-#   lb_arn                = module.alb.lb_arn
-#   bastion_sg_id         = module.security_groups.bastion_sg_id
-#   db_url                = module.db.db_url
-#   db_username           = module.db.db_username
-#   db_name               = module.db.db_name
-# }
+  ec2_pool_sg_id        = module.security_groups.ec2_pool_sg_id
+  ghost_app_profile_arn = module.iam.ghost_app_profile_arn
+  lb_dns_name           = module.alb.lb_dns_name
+  target_group_arn      = module.alb.target_group_arn
+  subnet_id             = module.vpc.subnet_id
+  lb_arn                = module.alb.lb_arn
+  bastion_sg_id         = module.security_groups.bastion_sg_id
+  db_url                = module.db.db_url
+  db_username           = module.db.db_username
+  db_name               = module.db.db_name
+}
 
 module "iam" {
   source = "./iam"

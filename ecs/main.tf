@@ -30,7 +30,7 @@ data "template_file" "container_definitions" {
   template = file("${path.module}/container_definition.json")
 
   vars = {
-    "ECR_IMAGE"   = "769832282011.dkr.ecr.eu-west-1.amazonaws.com/ghost:4.12"
+    "ECR_IMAGE"   = "769832282011.dkr.ecr.eu-west-1.amazonaws.com/ghost:5"
     "DB_URL"      = var.db_url
     "DB_USER"     = var.db_username
     "DB_NAME"     = var.db_name
@@ -61,6 +61,7 @@ resource "aws_ecs_service" "ghost" {
     security_groups  = [var.fargate_pool_sg_id]
     subnets          = [var.private_ecs_subnet_id.a, var.private_ecs_subnet_id.b, var.private_ecs_subnet_id.c]
   }
+
 }
 
 output "template_file" {

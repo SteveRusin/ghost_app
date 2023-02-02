@@ -50,6 +50,15 @@ resource "aws_security_group_rule" "egress_from_alb" {
   source_security_group_id = aws_security_group.ec2_pool.id
 }
 
+resource "aws_security_group_rule" "egress_ecs_from_alb" {
+  type                     = "egress"
+  from_port                = 0
+  to_port                  = 0
+  protocol                 = "-1"
+  security_group_id        = aws_security_group.alb.id
+  source_security_group_id = aws_security_group.fargate_pool.id
+}
+
 resource "aws_security_group_rule" "ingress_alb_to_ec2_pool" {
   description              = "inbound trafic from alb"
   type                     = "ingress"

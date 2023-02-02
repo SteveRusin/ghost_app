@@ -8,7 +8,10 @@ resource "aws_lb_target_group" "ghost-ec2" {
     enabled  = true
     path     = "/ghost"
     port     = 2368
-    interval = 15
+    interval = 60
+    unhealthy_threshold = 5
+    timeout = 30
+    healthy_threshold = 5
     matcher  = "200,301"
   }
 }
@@ -75,6 +78,8 @@ resource "aws_lb_target_group" "ghost-ecs" {
     port     = 2368
     interval = 60
     unhealthy_threshold = 5
+    timeout = 30
+    healthy_threshold = 5
     matcher  = "200,301"
   }
 }

@@ -9,13 +9,13 @@ DB_PASSWORD=$(aws ssm get-parameter --name $SSM_DB_PASSWORD --query Parameter.Va
 ### Install pre-reqs
 curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
 yum install -y nodejs amazon-efs-utils
-npm install ghost-cli@1.21.0 -g
+npm install ghost-cli@latest -g
 
 adduser ghost_user
 usermod -aG wheel ghost_user
 cd /home/ghost_user/
 
-sudo -u ghost_user ghost install local
+sudo -u ghost_user ghost install 5.33.3 --local --force
 
 cat << EOF > config.development.json
 
