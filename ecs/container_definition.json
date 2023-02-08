@@ -1,0 +1,39 @@
+[
+  {
+    "name": "task_def_ghost",
+    "image": "${ECR_IMAGE}",
+    "essential": true,
+    "secrets": [
+      {
+        "name": "database__connection__password",
+        "valueFrom": "arn:aws:ssm:eu-west-1:769832282011:parameter/ghost/dbpassw"
+      }
+    ],
+    "environment": [
+      { "name": "database__client", "value": "mysql" },
+      { "name": "database__connection__host", "value": "${DB_URL}" },
+      { "name": "database__connection__user", "value": "${DB_USER}" },
+      { "name": "database__connection__database", "value": "${DB_NAME}" }
+    ],
+    "mountPoints": [
+      {
+        "containerPath": "/var/lib/ghost/content",
+        "sourceVolume": "ghost_volume"
+      }
+    ],
+    "portMappings": [
+      {
+        "containerPort": 2368,
+        "hostPort": 2368
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${CLOUDWATCH_GROUP}",
+        "awslogs-region": "eu-west-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    }
+  }
+]
