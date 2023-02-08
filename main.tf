@@ -88,6 +88,10 @@ module "db" {
   aws_db_subnet_group_name = module.vpc.aws_db_subnet_group_name
 }
 
+module "cloudwatch-dashboard" {
+  source = "./cloudwatch-dashboard"
+}
+
 output "alb_url" {
   value = module.alb.lb_dns_name
 }

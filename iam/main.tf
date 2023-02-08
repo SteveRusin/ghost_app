@@ -14,7 +14,9 @@ resource "aws_iam_policy" "ec2_ghost_app" {
           "elasticfilesystem:ClientWrite",
           "ssm:GetParameter*",
           "secretsmanager:GetSecretValue",
-          "kms:Decrypt"
+          "kms:Decrypt",
+          "logs:*",
+          "cloudwatch:*",
         ]
         Effect   = "Allow"
         Resource = "*"
@@ -76,6 +78,7 @@ resource "aws_iam_policy" "ghost_ecs" {
           "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
           "elasticloadbalancing:RegisterTargets",
           "logs:*",
+          "cloudwatch:*",
           "ssm:GetParameter*",
           "secretsmanager:GetSecretValue",
         ]
